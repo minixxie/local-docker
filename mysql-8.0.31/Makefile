@@ -23,4 +23,4 @@ stats:
 
 .PHONY: cli
 cli:
-	docker run --rm -it ${PULL_THRU_CACHE}library/mysql:8.0.31-oracle mysql -uroot -p${MYSQL_ROOT_PASSWORD}
+	docker run --rm -it --net=local_backend ${PULL_THRU_CACHE}library/mysql:8.0.31-oracle mysql -hmysql_8_0_31 -uroot -p${MYSQL_ROOT_PASSWORD}
