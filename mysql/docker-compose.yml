@@ -1,0 +1,23 @@
+---
+version: '3.3'
+services:
+  mysql_8_0_31:
+    image: ${PULL_THRU_CACHE}library/mysql:8.0.31-oracle
+    container_name: mysql_8_0_31
+    hostname: mysql_8_0_31
+    restart: always
+    environment:
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+    expose:
+      - 3306
+    networks:
+      - docker
+    healthcheck:
+      test: mysql -h127.0.0.1 -P3306 -uroot -p${MYSQL_ROOT_PASSWORD} -e'select 1;'
+      interval: 5s
+      timeout: 4s
+      retries: 36
+networks:
+  docker:
+    external:
+      name: docker
