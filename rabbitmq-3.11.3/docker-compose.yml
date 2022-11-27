@@ -1,0 +1,32 @@
+---
+version: '3.3'
+services:
+  rabbitmq_3_11_3:
+    image: ${PULL_THRU_CACHE}library/rabbitmq:3.11.3-alpine
+    container_name: rabbitmq_3_11_3
+    hostname: rabbitmq_3_11_3
+    restart: always
+    networks:
+      - local_backend
+    healthcheck:
+      test: /bin/false
+      interval: 5s
+      timeout: 4s
+      retries: 36
+  rabbitmq_ui:
+    image: ${PULL_THRU_CACHE}library/rabbitmq:3-management
+    container_name: rabbitmq_ui
+    hostname: rabbitmq_ui
+    restart: always
+    environment:
+      - VIRTUAL_HOST=rabbitmq-ui.local
+      - VIRTUAL_PORT=15672
+      - RABBITMQ_DEFAULT_VHOST=rabbitmq-ui.local
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+      - local_backend
+networks:
+  local_backend:
+    external:
+      name: local_backend

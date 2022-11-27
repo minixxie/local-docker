@@ -2,8 +2,7 @@ PULL_THRU_CACHE :=
 
 .PHONY: check
 check:
-	docker ps -a | grep kafka_3_3
-	docker ps -a | grep zookeeper_3_8
+	docker ps -a | grep rabbitmq_3_11_3
 
 .PHONY: up
 up:
@@ -11,15 +10,15 @@ up:
 
 .PHONY: down
 down:
-	docker rm -f kafka_3_3 zookeeper_3_8 kafka_ui
+	docker rm -f rabbitmq_3_11_3 rabbitmq_ui
 
 .PHONY: logs
 logs:
-	docker logs -f kafka_3_3
+	docker logs -f rabbitmq_3_11_3
 
 .PHONY: stats
 stats:
-	docker stats kafka_3_3 zookeeper_3_8 kafka_ui
+	docker stats rabbitmq_3_11_3 rabbitmq_ui
 
 .PHONY: cli
 cli:
