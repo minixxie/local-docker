@@ -11,13 +11,13 @@ services:
     expose:
       - 3306
     networks:
-      - docker
+      - local_backend
     healthcheck:
       test: mysql -h127.0.0.1 -P3306 -uroot -p${MYSQL_ROOT_PASSWORD} -e'select 1;'
       interval: 5s
       timeout: 4s
       retries: 36
 networks:
-  docker:
+  local_backend:
     external:
-      name: docker
+      name: local_backend

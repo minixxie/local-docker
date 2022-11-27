@@ -14,4 +14,4 @@ minikube:
 
 .PHONY: docker-networks
 docker-networks:
-	docker network create docker
+	docker network create local_backend
