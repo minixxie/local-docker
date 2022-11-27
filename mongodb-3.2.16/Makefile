@@ -7,7 +7,7 @@ check:
 
 .PHONY: up
 up:
-	MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD} docker-compose up -d
+	MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD} PULL_THRU_CACHE=${PULL_THRU_CACHE} docker-compose up -d
 
 .PHONY: down
 down:

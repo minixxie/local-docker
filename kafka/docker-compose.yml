@@ -1,0 +1,53 @@
+---
+version: '3.3'
+services:
+  zookeeper:
+    image: ${PULL_THRU_CACHE}bitnami/zookeeper:3.8
+    container_name: zookeeper_3_8
+    hostname: zookeeper_3_8
+    restart: always
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    expose:
+      - 2181
+    networks:
+      - local_backend
+  kafka:
+    image: ${PULL_THRU_CACHE}bitnami/kafka:3.3
+    container_name: kafka_3_3
+    hostname: kafka_3_3
+    restart: always
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper_3_8:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    expose:
+      - 9092
+    networks:
+      - local_backend
+    depends_on:
+      - zookeeper
+  kafka-ui:
+    image: ${PULL_THRU_CACHE}provectuslabs/kafka-ui:5f232a3966cda70eac34aa2b32ec4a610404d1c6
+    container_name: kafka_ui
+    hostname: kafka_ui
+    restart: always
+    environment:
+      - VIRTUAL_HOST=kafka-ui.local
+      - VIRTUAL_PORT=8080
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka_3_3:9092
+    networks:
+      - local_backend
+networks:
+  local_backend:
+    external:
+      name: local_backend
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local

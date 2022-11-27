@@ -7,7 +7,7 @@ check:
 
 .PHONY: up
 up:
-	MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} docker-compose up -d
+	MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} PULL_THRU_CACHE=${PULL_THRU_CACHE} docker-compose up -d
 
 .PHONY: down
 down:
