@@ -8,11 +8,6 @@ services:
     restart: always
     networks:
       - local_backend
-    healthcheck:
-      test: /bin/false
-      interval: 5s
-      timeout: 4s
-      retries: 36
   rabbitmq_ui:
     image: ${PULL_THRU_CACHE}library/rabbitmq:3-management
     container_name: rabbitmq_ui
