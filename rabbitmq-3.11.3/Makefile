@@ -3,6 +3,7 @@ PULL_THRU_CACHE :=
 .PHONY: check
 check:
 	docker ps -a | grep rabbitmq_3_11_3
+	docker ps -a | grep rabbitmq_ui
 
 .PHONY: up
 up:
