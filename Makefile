@@ -7,8 +7,9 @@ install-tools:
 
 .PHONY: minikube
 minikube:
-	#minikube delete; minikube start --driver=hyperkit --cpus 2 --memory 2048
-	make docker-networks
+	minikube delete; minikube start --driver=hyperkit --cpus 2 --memory 2048
+	minikube pause
+	eval $$(minikube docker-env) ; docker rm -f $$(docker ps -qa) ; make docker-networks
 	@echo "Remember to run this for every terminal, or add this into your ~/.bashrc or ~/.zshrc, etc:"
 	@echo "eval \$$(minikube docker-env)"
 
