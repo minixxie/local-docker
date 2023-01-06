@@ -13,6 +13,10 @@ minikube:
 	@echo "Remember to run this for every terminal, or add this into your ~/.bashrc or ~/.zshrc, etc:"
 	@echo "eval \$$(minikube docker-env)"
 
+.PHONY: minikube-mount
+minikube-mount:
+	minikube mount /Users:/Users
+
 .PHONY: docker-networks
 docker-networks:
 	docker network create local_backend
