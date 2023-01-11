@@ -3,7 +3,7 @@ MONGODB_ROOT_PASSWORD := hello123
 
 .PHONY: check
 check:
-	docker ps -a | grep mongodb_3_2_16
+	docker ps -a | grep mongodb-3-2-16
 
 .PHONY: up
 up:
@@ -11,16 +11,16 @@ up:
 
 .PHONY: down
 down:
-	docker rm -f mongodb_3_2_16
+	docker rm -f mongodb-3-2-16
 
 .PHONY: logs
 logs:
-	docker logs -f mongodb_3_2_16
+	docker logs -f mongodb-3-2-16
 
 .PHONY: stats
 stats:
-	docker stats mongodb_3_2_16
+	docker stats mongodb-3-2-16
 
 .PHONY: cli
 cli:
-	docker run --rm -it --net local_backend ${PULL_THRU_CACHE}library/mongo:3.2.16 mongo mongodb://root:${MONGODB_ROOT_PASSWORD}@mongodb_3_2_16:27017/admin
+	docker run --rm -it --net local_backend ${PULL_THRU_CACHE}library/mongo:3.2.16 mongo mongodb://root:${MONGODB_ROOT_PASSWORD}@mongodb-3-2-16:27017/admin

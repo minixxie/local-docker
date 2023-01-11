@@ -2,8 +2,8 @@ PULL_THRU_CACHE :=
 
 .PHONY: check
 check:
-	docker ps -a | grep rabbitmq_3_11_3
-	docker ps -a | grep rabbitmq_ui
+	docker ps -a | grep rabbitmq-3-11-3
+	docker ps -a | grep rabbitmq-ui
 
 .PHONY: up
 up:
@@ -11,15 +11,15 @@ up:
 
 .PHONY: down
 down:
-	docker rm -f rabbitmq_3_11_3 rabbitmq_ui
+	docker rm -f rabbitmq-3-11-3 rabbitmq-ui
 
 .PHONY: logs
 logs:
-	docker logs -f rabbitmq_3_11_3
+	docker logs -f rabbitmq-3-11-3
 
 .PHONY: stats
 stats:
-	docker stats rabbitmq_3_11_3 rabbitmq_ui
+	docker stats rabbitmq-3-11-3 rabbitmq-ui
 
 .PHONY: cli
 cli:

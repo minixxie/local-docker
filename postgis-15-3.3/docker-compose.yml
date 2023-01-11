@@ -1,10 +1,10 @@
 ---
 version: '3.3'
 services:
-  postgis_15_3_3:
+  postgis-15-3-3:
     image: ${PULL_THRU_CACHE}postgis/postgis:15-3.3-alpine
-    container_name: postgis_15_3_3
-    hostname: postgis_15_3_3
+    container_name: postgis-15-3-3
+    hostname: postgis-15-3-3
     restart: always
     environment:
       - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
@@ -25,12 +25,11 @@ services:
     environment:
       - VIRTUAL_HOST=postgis-ui.local
       - VIRTUAL_PORT=8081
-      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@postgis_15_3_3:5432/postgres?sslmode=disable
+      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@postgis-15-3-3:5432/postgres?sslmode=disable
     networks:
       - local_backend
     depends_on:
-      - postgis_15_3_3
+      - postgis-15-3-3
 networks:
   local_backend:
-    external:
-      name: local_backend
+    name: local_backend

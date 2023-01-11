@@ -1,17 +1,17 @@
 ---
 version: '3.3'
 services:
-  rabbitmq_3_11_3:
+  rabbitmq-3-11-3:
     image: ${PULL_THRU_CACHE}library/rabbitmq:3.11.3-alpine
-    container_name: rabbitmq_3_11_3
-    hostname: rabbitmq_3_11_3
+    container_name: rabbitmq-3-11-3
+    hostname: rabbitmq-3-11-3
     restart: always
     networks:
       - local_backend
-  rabbitmq_ui:
+  rabbitmq-ui:
     image: ${PULL_THRU_CACHE}library/rabbitmq:3-management
-    container_name: rabbitmq_ui
-    hostname: rabbitmq_ui
+    container_name: rabbitmq-ui
+    hostname: rabbitmq-ui
     restart: always
     environment:
       - VIRTUAL_HOST=rabbitmq-ui.local
@@ -23,5 +23,4 @@ services:
       - local_backend
 networks:
   local_backend:
-    external:
-      name: local_backend
+    name: local_backend

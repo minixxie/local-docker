@@ -1,10 +1,10 @@
 ---
 version: '3.3'
 services:
-  mysql_8_0_31:
+  mysql-8-0-31:
     image: ${PULL_THRU_CACHE}library/mysql:8.0.31-oracle
-    container_name: mysql_8_0_31
-    hostname: mysql_8_0_31
+    container_name: mysql-8-0-31
+    hostname: mysql-8-0-31
     restart: always
     environment:
       - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
@@ -19,5 +19,4 @@ services:
       retries: 36
 networks:
   local_backend:
-    external:
-      name: local_backend
+    name: local_backend
