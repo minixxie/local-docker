@@ -33,5 +33,6 @@ cli:
 	# \du <user> - retreive a specific user
 	# \df - list all functions
 	# \dv - list all views
+	# select pg_relation_filepath('<table-name>'); - show paths of physical files
 	docker run --rm -it --net=local_backend -e PGPASSWORD=${POSTGRES_PASSWORD} \
 	       ${PULL_THRU_CACHE}postgis/postgis:15-3.3-alpine psql -h postgis-15-3-3 -U postgres
