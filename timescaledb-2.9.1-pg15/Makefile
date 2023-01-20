@@ -3,7 +3,7 @@ POSTGRES_PASSWORD := hello123
 
 .PHONY: check
 check:
-	docker ps -a | grep postgis-15-3-3
+	docker ps -a | grep timescaledb-2-9-1-pg15
 
 .PHONY: up
 up:
@@ -11,15 +11,15 @@ up:
 
 .PHONY: down
 down:
-	docker rm -f postgis-15-3-3
+	docker rm -f timescaledb-2-9-1-pg15
 
 .PHONY: logs
 logs:
-	docker logs -f postgis-15-3-3
+	docker logs -f timescaledb-2-9-1-pg15
 
 .PHONY: stats
 stats:
-	docker stats postgis-15-3-3
+	docker stats timescaledb-2-9-1-pg15
 
 .PHONY: cli
 cli:
@@ -34,4 +34,4 @@ cli:
 	# \df - list all functions
 	# \dv - list all views
 	docker run --rm -it --net=local_backend -e PGPASSWORD=${POSTGRES_PASSWORD} \
-	       ${PULL_THRU_CACHE}postgis/postgis:15-3.3-alpine psql -h postgis-15-3-3 -U postgres
+	       ${PULL_THRU_CACHE}timescale/timescaledb:2.9.1-pg15 psql -h timescaledb-2-9-1-pg15 -U postgres

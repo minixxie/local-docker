@@ -1,10 +1,10 @@
 ---
 version: '3.3'
 services:
-  postgis-15-3-3:
-    image: ${PULL_THRU_CACHE}postgis/postgis:15-3.3-alpine
-    container_name: postgis-15-3-3
-    hostname: postgis-15-3-3
+  timescaledb-2-9-1-pg15:
+    image: ${PULL_THRU_CACHE}timescale/timescaledb:2.9.1-pg15
+    container_name: timescaledb-2-9-1-pg15
+    hostname: timescaledb-2-9-1-pg15
     restart: always
     environment:
       - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
@@ -17,19 +17,19 @@ services:
       interval: 5s
       timeout: 4s
       retries: 36
-  postgis-ui:
+  timescaledb_ui:
     image: ${PULL_THRU_CACHE}sosedoff/pgweb:0.11.12
-    container_name: postgis-ui
-    hostname: postgis-ui
+    container_name: timescaledb-ui
+    hostname: timescaledb-ui
     restart: always
     environment:
-      - VIRTUAL_HOST=postgis-ui.local
+      - VIRTUAL_HOST=timescaledb-ui.local
       - VIRTUAL_PORT=8081
-      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@postgis-15-3-3:5432/postgres?sslmode=disable
+      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@timescaledb-2-9-1-pg15:5432/postgres?sslmode=disable
     networks:
       - local_backend
     depends_on:
-      - postgis-15-3-3
+      - timescaledb-2-9-1-pg15
 networks:
   local_backend:
     name: local_backend
