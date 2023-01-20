@@ -11,7 +11,7 @@ up:
 
 .PHONY: down
 down:
-	docker rm -f timescaledb-2-9-1-pg15
+	docker rm -f timescaledb-2-9-1-pg15 timescaledb-ui
 
 .PHONY: logs
 logs:

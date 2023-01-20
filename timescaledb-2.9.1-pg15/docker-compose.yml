@@ -17,7 +17,7 @@ services:
       interval: 5s
       timeout: 4s
       retries: 36
-  timescaledb_ui:
+  timescaledb-ui:
     image: ${PULL_THRU_CACHE}sosedoff/pgweb:0.11.12
     container_name: timescaledb-ui
     hostname: timescaledb-ui

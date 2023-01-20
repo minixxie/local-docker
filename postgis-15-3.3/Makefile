@@ -11,7 +11,7 @@ up:
 
 .PHONY: down
 down:
-	docker rm -f postgis-15-3-3
+	docker rm -f postgis-15-3-3 postgis-ui
 
 .PHONY: logs
 logs:
