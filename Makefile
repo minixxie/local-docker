@@ -19,4 +19,4 @@ minikube-mount:
 
 .PHONY: docker-networks
 docker-networks:
-	docker network create local_backend
+	docker network create local_backend || true
