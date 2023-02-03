@@ -20,3 +20,7 @@ minikube-mount:
 .PHONY: docker-networks
 docker-networks:
 	docker network create local_backend || true
+
+.PHONY: hosts
+hosts:
+	@./.hosts.sh 127.0.0.1
