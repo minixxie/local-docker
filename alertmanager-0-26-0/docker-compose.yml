@@ -1,0 +1,18 @@
+---
+version: '3.3'
+services:
+  alertmanager-0-26-0:
+    image: ${PULL_THRU_CACHE}prom/alertmanager:v0.26.0
+    container_name: alertmanager-0-26-0
+    hostname: alertmanager-0-26-0
+    restart: always
+    expose:
+      - 9093
+    environment:
+      - VIRTUAL_HOST=alertmanager.local
+      - VIRTUAL_PORT=9093
+    networks:
+      - local_network
+networks:
+  local_network:
+    name: local_network

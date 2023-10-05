@@ -1,0 +1,20 @@
+---
+version: '3.3'
+services:
+  prometheus-2-47-0:
+    image: ${PULL_THRU_CACHE}prom/prometheus:v2.47.0
+    container_name: prometheus-2-47-0
+    hostname: prometheus-2-47-0
+    restart: always
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    expose:
+      - 9090
+    environment:
+      - VIRTUAL_HOST=prometheus.local
+      - VIRTUAL_PORT=9090
+    networks:
+      - local_network
+networks:
+  local_network:
+    name: local_network

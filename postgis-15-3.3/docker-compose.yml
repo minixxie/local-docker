@@ -13,7 +13,7 @@ services:
     expose:
       - 5432
     networks:
-      - local_backend
+      - local_network
     healthcheck:
       test: psql -h 127.0.0.1 -U postgres -c 'select 1;'
       interval: 5s
@@ -29,9 +29,9 @@ services:
       - VIRTUAL_PORT=8081
       - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@postgis-15-3-3:5432/postgres?sslmode=disable
     networks:
-      - local_backend
+      - local_network
     depends_on:
       - postgis-15-3-3
 networks:
-  local_backend:
-    name: local_backend
+  local_network:
+    name: local_network

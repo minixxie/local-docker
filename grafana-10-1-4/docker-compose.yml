@@ -1,0 +1,18 @@
+---
+version: '3.3'
+services:
+  grafana-10-1-4:
+    image: ${PULL_THRU_CACHE}grafana/grafana:10.1.4
+    container_name: grafana-10-1-4
+    hostname: grafana-10-1-4
+    restart: always
+    expose:
+      - 3000
+    environment:
+      - VIRTUAL_HOST=grafana.local
+      - VIRTUAL_PORT=3000
+    networks:
+      - local_network
+networks:
+  local_network:
+    name: local_network

@@ -1,0 +1,20 @@
+---
+version: '3.3'
+services:
+  cadvisor-0-47-2:
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
+    container_name: cadvisor-0-47-2
+    hostname: cadvisor-0-47-2
+    restart: always
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    expose:
+      - 8080
+    networks:
+      - local_network
+networks:
+  local_network:
+    name: local_network

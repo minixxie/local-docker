@@ -1,0 +1,29 @@
+---
+version: '3.3'
+services:
+  graylog-5-1-5:
+    image: ${PULL_THRU_CACHE}graylog/graylog:5.1.5
+    container_name: graylog-5-1-5
+    hostname: graylog-5-1-5
+    restart: always
+    entrypoint: /usr/bin/tini -- wait-for-it elasticsearch-oss-7-10-2:9200 --  /docker-entrypoint.sh
+    environment:
+      - VIRTUAL_HOST=graylog-ui.local
+      - VIRTUAL_PORT=9000
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://graylog-ui.local/
+      - GRAYLOG_PASSWORD_SECRET=hello123hello123
+      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918  # password: admin
+      - GRAYLOG_ELASTICSEARCH_HOSTS=http://elasticsearch-oss-7-10-2:9200
+      - GRAYLOG_MONGODB_URI=mongodb://root:${MONGODB_ROOT_PASSWORD}@mongodb-5-0-21:27017/graylog
+    expose:
+      - 9000  # HTTP port
+      - 5555
+      - 1514
+      - 1514/udp
+      - 12201
+      - 12201/udp
+    networks:
+      - local_network
+networks:
+  local_network:
+    name: local_network

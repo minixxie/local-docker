@@ -1,0 +1,19 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus-2-47-0:9090']
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor-0-47-2:8080']
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter-1-6-1:9100']
+  - job_name: 'otel-collector'
+    static_configs:
+      - targets: ['otel-collector-0-86-0:8888']
+  - job_name: 'otel-collector-exporter'
+    static_configs:
+      - targets: ['otel-collector-0-86-0:8889']

@@ -1,0 +1,18 @@
+---
+version: '3.3'
+services:
+  zipkin-all-in-one:
+    image: ${PULL_THRU_CACHE}openzipkin/zipkin:latest
+    container_name: zipkin-all-in-one
+    hostname: zipkin-all-in-one
+    restart: always
+    environment:
+      - VIRTUAL_HOST=zipkin.local
+      - VIRTUAL_PORT=9411
+    expose:
+      - 9411
+    networks:
+      - local_network
+networks:
+  local_network:
+    name: local_network

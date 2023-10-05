@@ -8,6 +8,7 @@ install-tools:
 .PHONY: minikube
 minikube:
 	minikube delete; minikube start --driver=hyperkit --cpus 2 --memory 2048
+	#minikube delete; minikube start --driver=hyperkit --cpus 4 --memory 8194 --disk-size='40000mb'
 	minikube pause
 	eval $$(minikube docker-env) ; docker rm -f $$(docker ps -qa) ; make docker-networks
 	@echo "Remember to run this for every terminal, or add this into your ~/.bashrc or ~/.zshrc, etc:"
@@ -19,7 +20,7 @@ minikube-mount:
 
 .PHONY: docker-networks
 docker-networks:
-	docker network create local_backend || true
+	docker network create local_network || true
 
 .PHONY: hosts
 hosts:

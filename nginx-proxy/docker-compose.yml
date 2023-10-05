@@ -11,7 +11,12 @@ services:
     ports:
       - 80:80
     networks:
-      - local_backend
+      - local_network
+    healthcheck:
+      test: nc -zv 127.0.0.1 80
+      interval: 5s
+      timeout: 4s
+      retries: 36
 networks:
-  local_backend:
-    name: local_backend
+  local_network:
+    name: local_network

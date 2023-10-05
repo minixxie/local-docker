@@ -1,0 +1,20 @@
+---
+version: '3.3'
+services:
+  jaeger-all-in-one:
+    image: ${PULL_THRU_CACHE}jaegertracing/all-in-one:latest
+    container_name: jaeger-all-in-one
+    hostname: jaeger-all-in-one
+    restart: always
+    environment:
+      - VIRTUAL_HOST=jaeger.local
+      - VIRTUAL_PORT=16686
+    expose:
+      - 16686
+      - 14268
+      - 14250
+    networks:
+      - local_network
+networks:
+  local_network:
+    name: local_network

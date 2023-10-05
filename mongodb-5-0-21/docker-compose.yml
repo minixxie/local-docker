@@ -1,0 +1,27 @@
+---
+version: '3.3'
+services:
+  mongodb-5-0-21:
+    image: ${PULL_THRU_CACHE}library/mongo:5.0.21
+    container_name: mongodb-5-0-21
+    hostname: mongodb-5-0-21
+    restart: always
+    environment:
+      - RS_NAME=rs0
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+    volumes:
+      - "./healthcheck.js:/healthcheck.js"
+      - "./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js"
+    expose:
+      - 27017
+    networks:
+      - local_network
+    healthcheck:
+      test: mongo mongodb://root:${MONGODB_ROOT_PASSWORD}@127.0.0.1:27017/admin < /healthcheck.js
+      interval: 5s
+      timeout: 4s
+      retries: 36
+networks:
+  local_network:
+    name: local_network

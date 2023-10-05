@@ -1,0 +1,15 @@
+---
+version: '3.3'
+services:
+  node-exporter-1-6-1:
+    image: quay.io/prometheus/node-exporter:v1.6.1
+    container_name: node-exporter-1-6-1
+    hostname: node-exporter-1-6-1
+    restart: always
+    expose:
+      - 9100
+    networks:
+      - local_network
+networks:
+  local_network:
+    name: local_network

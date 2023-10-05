@@ -11,12 +11,12 @@ services:
     expose:
       - 3306
     networks:
-      - local_backend
+      - local_network
     healthcheck:
       test: mysql -h127.0.0.1 -P3306 -uroot -p${MYSQL_ROOT_PASSWORD} -e'select 1;'
       interval: 5s
       timeout: 4s
       retries: 36
 networks:
-  local_backend:
-    name: local_backend
+  local_network:
+    name: local_network
