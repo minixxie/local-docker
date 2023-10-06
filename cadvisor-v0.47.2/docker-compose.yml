@@ -18,3 +18,4 @@ services:
 networks:
   local_network:
     name: local_network
+    external: true

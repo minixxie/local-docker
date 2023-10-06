@@ -13,6 +13,7 @@ minikube:
 	eval $$(minikube docker-env) ; docker rm -f $$(docker ps -qa) ; make docker-networks
 	@echo "Remember to run this for every terminal, or add this into your ~/.bashrc or ~/.zshrc, etc:"
 	@echo "eval \$$(minikube docker-env)"
+	make minikube-mount
 
 .PHONY: minikube-mount
 minikube-mount:
@@ -24,4 +25,13 @@ docker-networks:
 
 .PHONY: hosts
 hosts:
-	@./.hosts.sh 127.0.0.1
+	@./.hosts.sh $$(minikube ip)
+
+.PHONY: up-monitoring
+up-monitoring:
+	cd node-exporter-1-6-1 && make up && cd -	
+	cd cadvisor-v0.47.2 && make up && cd -
+	cd otel-collector-0-86-0 && make up && cd -
+	cd jaeger-all-in-one && make up && cd -
+	cd prometheus-2-47-0 && make up && cd -
+	cd grafana-10-1-4 && make up && cd -
