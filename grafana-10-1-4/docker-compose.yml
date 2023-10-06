@@ -6,6 +6,11 @@ services:
     container_name: grafana-10-1-4
     hostname: grafana-10-1-4
     restart: always
+    volumes:
+      - ./datasources-provisioning.yml:/etc/grafana/provisioning/datasources/all.yml:ro
+      - ./dashboards-provisioning.yml:/etc/grafana/provisioning/dashboards/local.yml:ro
+      - ./my-run.sh:/my-run.sh
+    entrypoint: /my-run.sh
     expose:
       - 3000
     environment:
