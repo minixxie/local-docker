@@ -1,7 +1,7 @@
 ---
 version: '3.3'
 services:
-  zookeeper:
+  zookeeper-3-8:
     image: ${PULL_THRU_CACHE}bitnami/zookeeper:3.8
     container_name: zookeeper-3-8
     hostname: zookeeper-3-8
@@ -29,7 +29,7 @@ services:
     networks:
       - local
     depends_on:
-      - zookeeper
+      - zookeeper-3-8
   kafka-ui:
     image: ${PULL_THRU_CACHE}provectuslabs/kafka-ui:5f232a3966cda70eac34aa2b32ec4a610404d1c6
     container_name: kafka-ui

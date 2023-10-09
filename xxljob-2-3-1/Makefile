@@ -9,6 +9,7 @@ check:
 .PHONY: up
 up:
 	${COMPOSE} up -d
+	cd ../nginx && make up && cd -
 	@echo "1. Remember to run ./init-db.sh if you haven't!"
 	@echo "2. Add entry '127.0.0.1  xxljob.local' into /etc/hosts"
 	@echo "3. And then you can visit: http://xxljob.local/xxl-job-admin (user: admin, pass: 123456)"

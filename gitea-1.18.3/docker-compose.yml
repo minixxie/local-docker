@@ -1,7 +1,7 @@
 ---
 version: '3.3'
 services:
-  gitea:
+  gitea-1-18-3:
     image: ${PULL_THRU_CACHE}gitea/gitea:1.18.3
     container_name: gitea-1-18-3
     hostname: gitea-1-18-3

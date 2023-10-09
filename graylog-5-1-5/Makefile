@@ -8,9 +8,10 @@ check:
 
 .PHONY: up
 up:
-	cd ../mongodb-5-0-21 && make up
-	cd ../elasticsearch-oss-7-10-2 && make up
+	cd ../mongodb-5-0-21 && make up && cd -
+	cd ../elasticsearch-oss-7-10-2 && make up && cd -
 	${COMPOSE} up -d
+	cd ../nginx && make up cd -
 
 .PHONY: down
 down:
