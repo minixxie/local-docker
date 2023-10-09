@@ -1,25 +1,26 @@
-PULL_THRU_CACHE :=
+DOCKER := nerdctl
+COMPOSE := nerdctl compose
 
 .PHONY: check
 check:
-	docker ps -a | grep kafka_3_3
-	docker ps -a | grep zookeeper_3_8
+	${DOCKER} ps -a | grep kafka_3_3
+	${DOCKER} ps -a | grep zookeeper_3_8
 
 .PHONY: up
 up:
-	PULL_THRU_CACHE=${PULL_THRU_CACHE} docker-compose up -d
+	${COMPOSE} up -d
 
 .PHONY: down
 down:
-	docker rm -f kafka_3_3 zookeeper_3_8 kafka_ui
+	${DOCKER} rm -f kafka_3_3 zookeeper_3_8 kafka_ui || true
 
 .PHONY: logs
 logs:
-	docker logs -f kafka_3_3
+	${DOCKER} logs -f kafka_3_3
 
 .PHONY: stats
 stats:
-	docker stats kafka_3_3 zookeeper_3_8 kafka_ui
+	${DOCKER} stats kafka_3_3 zookeeper_3_8 kafka_ui
 
 .PHONY: cli
 cli:

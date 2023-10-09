@@ -13,7 +13,7 @@ services:
     expose:
       - 8080
     networks:
-      - local_backend
+      - local
 networks:
-  local_backend:
-    name: local_backend
+  local:
+    name: local

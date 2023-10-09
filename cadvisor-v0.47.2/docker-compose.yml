@@ -14,8 +14,7 @@ services:
     expose:
       - 8080
     networks:
-      - local_network
+      - local
 networks:
-  local_network:
-    name: local_network
-    external: true
+  local:
+    name: local

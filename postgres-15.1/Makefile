@@ -1,25 +1,29 @@
-PULL_THRU_CACHE :=
-POSTGRES_PASSWORD := hello123
+DOCKER := nerdctl
+COMPOSE := nerdctl compose
+CONTAINER := postgres-15-1
 
 .PHONY: check
 check:
-	docker ps -a | grep postgres-15-1
+	${DOCKER} ps -a | grep ${CONTAINER}
+	#${DOCKER} ps -a | grep postgres-ui
 
 .PHONY: up
 up:
-	POSTGRES_PASSWORD=${POSTGRES_PASSWORD} PULL_THRU_CACHE=${PULL_THRU_CACHE} docker-compose up -d
+	${COMPOSE} up -d
+	cd ../nginx && make up && cd -
 
 .PHONY: down
 down:
-	docker rm -f postgres-15-1
+	${DOCKER} rm -f ${CONTAINER} postgres-ui || true
 
 .PHONY: logs
 logs:
-	docker logs -f postgres-15-1
+	${DOCKER} logs -f ${CONTAINER}
 
 .PHONY: stats
 stats:
-	docker stats postgres-15-1
+	#${DOCKER} stats ${CONTAINER} postgres-ui
+	${DOCKER} stats ${CONTAINER}
 
 .PHONY: cli
 cli:
@@ -34,5 +38,5 @@ cli:
 	# \df - list all functions
 	# \dv - list all views
 	# select pg_relation_filepath('<table-name>'); - show paths of physical files
-	docker run --rm -it --net=local_backend -e PGPASSWORD=${POSTGRES_PASSWORD} \
-	       ${PULL_THRU_CACHE}library/postgres:15.1-alpine3.17 psql -h postgres-15-1 -U postgres
+	source .env ; ${DOCKER} run --rm -it --net=local -e PGPASSWORD="$$POSTGRES_PASSWORD" \
+	       "$$PULL_THRU_CACHE"library/postgres:15.1-alpine3.17 psql -h ${CONTAINER} -U postgres

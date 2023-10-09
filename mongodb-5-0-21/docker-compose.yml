@@ -16,12 +16,12 @@ services:
     expose:
       - 27017
     networks:
-      - local_network
-    healthcheck:
-      test: mongo mongodb://root:${MONGODB_ROOT_PASSWORD}@127.0.0.1:27017/admin < /healthcheck.js
-      interval: 5s
-      timeout: 4s
-      retries: 36
+      - local
+    #healthcheck:
+    #  test: mongo mongodb://root:${MONGODB_ROOT_PASSWORD}@127.0.0.1:27017/admin < /healthcheck.js
+    #  interval: 5s
+    #  timeout: 4s
+    #  retries: 36
 networks:
-  local_network:
-    name: local_network
+  local:
+    name: local

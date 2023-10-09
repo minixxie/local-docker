@@ -12,7 +12,7 @@ services:
       - VIRTUAL_HOST=alertmanager.local
       - VIRTUAL_PORT=9093
     networks:
-      - local_network
+      - local
 networks:
-  local_network:
-    name: local_network
+  local:
+    name: local

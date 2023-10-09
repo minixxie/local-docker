@@ -1,3 +1,5 @@
+DOCKER := nerdctl
+COMPOSE := nerdctl compose
 .PHONY: all
 all:
-	docker run --rm -it --net=local_network ubuntu bash
+	${DOCKER} run --rm -it --net=local ubuntu bash

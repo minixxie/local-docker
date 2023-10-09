@@ -1,23 +1,24 @@
-PULL_THRU_CACHE :=
+DOCKER := nerdctl
+COMPOSE := nerdctl compose
 CONTAINER := zipkin-all-in-one
 
 .PHONY: check
 check:
-	docker ps -a | grep ${CONTAINER}
+	${DOCKER} ps -a | grep ${CONTAINER}
 
 .PHONY: up
 up:
-	PULL_THRU_CACHE=${PULL_THRU_CACHE} docker-compose up -d
-	cd ../nginx-proxy && make up
+	${COMPOSE} up -d
+	cd ../nginx && make up
 
 .PHONY: down
 down:
-	docker rm -f ${CONTAINER}
+	${DOCKER} rm -f ${CONTAINER} || true
 
 .PHONY: logs
 logs:
-	docker logs -f ${CONTAINER}
+	${DOCKER} logs -f ${CONTAINER}
 
 .PHONY: stats
 stats:
-	docker stats ${CONTAINER}
+	${DOCKER} stats ${CONTAINER}

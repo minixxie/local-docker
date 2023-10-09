@@ -7,7 +7,7 @@ services:
     hostname: rabbitmq-3-11-3
     restart: always
     networks:
-      - local_backend
+      - local
   rabbitmq-ui:
     image: ${PULL_THRU_CACHE}library/rabbitmq:3-management
     container_name: rabbitmq-ui
@@ -20,7 +20,7 @@ services:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
     networks:
-      - local_backend
+      - local
 networks:
-  local_backend:
-    name: local_backend
+  local:
+    name: local

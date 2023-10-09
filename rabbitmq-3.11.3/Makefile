@@ -1,25 +1,26 @@
-PULL_THRU_CACHE :=
+DOCKER := nerdctl
+COMPOSE := nerdctl compose
 
 .PHONY: check
 check:
-	docker ps -a | grep rabbitmq-3-11-3
-	docker ps -a | grep rabbitmq-ui
+	${DOCKER} ps -a | grep rabbitmq-3-11-3
+	${DOCKER} ps -a | grep rabbitmq-ui
 
 .PHONY: up
 up:
-	PULL_THRU_CACHE=${PULL_THRU_CACHE} docker-compose up -d
+	${COMPOSE} up -d
 
 .PHONY: down
 down:
-	docker rm -f rabbitmq-3-11-3 rabbitmq-ui
+	${DOCKER} rm -f rabbitmq-3-11-3 rabbitmq-ui || true
 
 .PHONY: logs
 logs:
-	docker logs -f rabbitmq-3-11-3
+	${DOCKER} logs -f rabbitmq-3-11-3
 
 .PHONY: stats
 stats:
-	docker stats rabbitmq-3-11-3 rabbitmq-ui
+	${DOCKER} stats rabbitmq-3-11-3 rabbitmq-ui
 
 .PHONY: cli
 cli:

@@ -1,27 +1,27 @@
-PULL_THRU_CACHE :=
+DOCKER := nerdctl
+COMPOSE := nerdctl compose
 CONTAINER := mysql-8-0-31
-MYSQL_ROOT_PASSWORD := hello123
 
 .PHONY: check
 check:
-	docker ps -a | grep ${CONTAINER}
+	${DOCKER} ps -a | grep ${CONTAINER}
 
 .PHONY: up
 up:
-	MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} PULL_THRU_CACHE=${PULL_THRU_CACHE} docker-compose up -d
+	${COMPOSE} up -d
 
 .PHONY: down
 down:
-	docker rm -f ${CONTAINER}
+	${DOCKER} rm -f ${CONTAINER} || true
 
 .PHONY: logs
 logs:
-	docker logs -f ${CONTAINER}
+	${DOCKER} logs -f ${CONTAINER}
 
 .PHONY: stats
 stats:
-	docker stats ${CONTAINER}
+	${DOCKER} stats ${CONTAINER}
 
 .PHONY: cli
 cli:
-	docker run --rm -it --net=local_network ${PULL_THRU_CACHE}library/mysql:8.0.31-oracle mysql -A --default-character-set=utf8 -hmysql-8-0-31 -uroot -p${MYSQL_ROOT_PASSWORD}
+	source .env ; ${DOCKER} run --rm -it --net=local "$$PULL_THRU_CACHE"library/mysql:8.0.31-oracle mysql -A --default-character-set=utf8 -hmysql-8-0-31 -uroot -p"$$MYSQL_ROOT_PASSWORD"

@@ -19,13 +19,13 @@ minikube:
 minikube-mount:
 	minikube mount /Users:/Users
 
-.PHONY: docker-networks
-docker-networks:
-	docker network create local_network || true
+#.PHONY: docker-networks
+#docker-networks:
+#	docker network create local_network || true
 
 .PHONY: hosts
 hosts:
-	@./.hosts.sh $$(minikube ip)
+	@./.hosts.sh 127.0.0.1
 
 .PHONY: up-monitoring
 up-monitoring:

@@ -13,7 +13,7 @@ services:
     expose:
       - 2181
     networks:
-      - local_backend
+      - local
   kafka:
     image: ${PULL_THRU_CACHE}bitnami/kafka:3.3
     container_name: kafka-3-3
@@ -27,7 +27,7 @@ services:
     expose:
       - 9092
     networks:
-      - local_backend
+      - local
     depends_on:
       - zookeeper
   kafka-ui:
@@ -41,10 +41,10 @@ services:
       - KAFKA_CLUSTERS_0_NAME=local
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka-3-3:9092
     networks:
-      - local_backend
+      - local
 networks:
-  local_backend:
-    name: local_backend
+  local:
+    name: local
 volumes:
   zookeeper_data:
     driver: local

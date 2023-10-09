@@ -9,8 +9,7 @@ services:
     expose:
       - 9100
     networks:
-      - local_network
+      - local
 networks:
-  local_network:
-    name: local_network
-    external: true
+  local:
+    name: local

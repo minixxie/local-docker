@@ -14,8 +14,7 @@ services:
       - VIRTUAL_HOST=prometheus.local
       - VIRTUAL_PORT=9090
     networks:
-      - local_network
+      - local
 networks:
-  local_network:
-    name: local_network
-    external: true
+  local:
+    name: local

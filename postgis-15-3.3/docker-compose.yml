@@ -13,12 +13,12 @@ services:
     expose:
       - 5432
     networks:
-      - local_network
-    healthcheck:
-      test: psql -h 127.0.0.1 -U postgres -c 'select 1;'
-      interval: 5s
-      timeout: 4s
-      retries: 36
+      - local
+    #healthcheck:
+    #  test: psql -h 127.0.0.1 -U postgres -c 'select 1;'
+    #  interval: 5s
+    #  timeout: 4s
+    #  retries: 36
   postgis-ui:
     image: ${PULL_THRU_CACHE}sosedoff/pgweb:0.11.12
     container_name: postgis-ui
@@ -28,10 +28,12 @@ services:
       - VIRTUAL_HOST=postgis-ui.local
       - VIRTUAL_PORT=8081
       - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@postgis-15-3-3:5432/postgres?sslmode=disable
+    expose:
+      - 8081
     networks:
-      - local_network
+      - local
     depends_on:
       - postgis-15-3-3
 networks:
-  local_network:
-    name: local_network
+  local:
+    name: local

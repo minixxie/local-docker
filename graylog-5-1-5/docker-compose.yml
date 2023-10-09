@@ -23,7 +23,7 @@ services:
       - 12201
       - 12201/udp
     networks:
-      - local_network
+      - local
 networks:
-  local_network:
-    name: local_network
+  local:
+    name: local

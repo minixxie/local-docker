@@ -17,8 +17,7 @@ services:
       - "4317"  # OTLP gRPC receiver
       - "55679"  # zpages extension
     networks:
-      - local_network
+      - local
 networks:
-  local_network:
-    name: local_network
-    external: true
+  local:
+    name: local

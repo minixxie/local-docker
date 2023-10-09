@@ -1,26 +1,26 @@
-PULL_THRU_CACHE :=
-APP := gitea-1-18-3
-POSTGRES_PASSWORD := hello123
+DOCKER := nerdctl
+COMPOSE := nerdctl compose
+CONTAINER := gitea-1-18-3
 
 .PHONY: check
 check:
-	docker ps -a | grep ${APP}
+	${DOCKER} ps -a | grep ${CONTAINER}
 
 .PHONY: up
 up:
-	POSTGRES_PASSWORD=hello123 PULL_THRU_CACHE=${PULL_THRU_CACHE} docker-compose up -d
+	${COMPOSE} up -d
 
 .PHONY: down
 down:
-	docker rm -f ${APP}
+	${DOCKER} rm -f ${CONTAINER} || true
 
 .PHONY: logs
 logs:
-	docker logs -f ${APP}
+	${DOCKER} logs -f ${CONTAINER}
 
 .PHONY: stats
 stats:
-	docker stats $$(docker-compose ps | sed 1d | awk '{print $$1}')
+	${DOCKER} stats $$(${COMPOSE} ps | sed 1d | awk '{print $$1}')
 
 .PHONY: pgcli
 pgcli:
@@ -35,5 +35,5 @@ pgcli:
 	# \df - list all functions
 	# \dv - list all views
 	# select pg_relation_filepath('<table-name>'); - show paths of physical files
-	docker run --rm -it --net=local_backend -e PGPASSWORD=${POSTGRES_PASSWORD} \
-	       ${PULL_THRU_CACHE}library/postgres:15.1-alpine3.17 psql -h gitea-postgres-15-1 -U postgres
+	source .env ; ${DOCKER} run --rm -it --net=local -e PGPASSWORD="$$POSTGRES_PASSWORD" \
+	       "$$PULL_THRU_CACHE"library/postgres:15.1-alpine3.17 psql -h gitea-postgres-15-1 -U postgres

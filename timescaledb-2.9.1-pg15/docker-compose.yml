@@ -11,7 +11,7 @@ services:
     expose:
       - 5432
     networks:
-      - local_backend
+      - local
     healthcheck:
       test: psql -h 127.0.0.1 -U postgres -c 'select 1;'
       interval: 5s
@@ -27,9 +27,9 @@ services:
       - VIRTUAL_PORT=8081
       - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@timescaledb-2-9-1-pg15:5432/postgres?sslmode=disable
     networks:
-      - local_backend
+      - local
     depends_on:
       - timescaledb-2-9-1-pg15
 networks:
-  local_backend:
-    name: local_backend
+  local:
+    name: local

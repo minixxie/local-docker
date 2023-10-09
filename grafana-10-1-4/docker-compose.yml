@@ -17,8 +17,7 @@ services:
       - VIRTUAL_HOST=grafana.local
       - VIRTUAL_PORT=3000
     networks:
-      - local_network
+      - local
 networks:
-  local_network:
-    name: local_network
-    external: true
+  local:
+    name: local

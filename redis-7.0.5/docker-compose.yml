@@ -9,12 +9,12 @@ services:
     expose:
       - 6379
     networks:
-      - local_backend
+      - local
     healthcheck:
       test: redis-cli -h 127.0.0.1 -p 6379 PING
       interval: 5s
       timeout: 4s
       retries: 36
 networks:
-  local_backend:
-    name: local_backend
+  local:
+    name: local

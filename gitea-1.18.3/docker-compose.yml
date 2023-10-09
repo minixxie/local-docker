@@ -25,7 +25,7 @@ services:
     ports:
       - 8222:22
     networks:
-      - local_backend
+      - local
     depends_on:
       - gitea-db
   gitea-db:
@@ -39,12 +39,12 @@ services:
     expose:
       - 5432
     networks:
-      - local_backend
+      - local
     healthcheck:
       test: psql -h 127.0.0.1 -U postgres -c 'select 1;'
       interval: 5s
       timeout: 4s
       retries: 36
 networks:
-  local_backend:
-    name: local_backend
+  local:
+    name: local

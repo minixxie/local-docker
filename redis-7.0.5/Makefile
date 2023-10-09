@@ -1,25 +1,26 @@
-PULL_THRU_CACHE :=
+DOCKER := nerdctl
+COMPOSE := nerdctl compose
 
 .PHONY: check
 check:
-	docker ps -a | grep redis-7-0-5
+	${DOCKER} ps -a | grep redis-7-0-5
 
 .PHONY: up
 up:
-	PULL_THRU_CACHE=${PULL_THRU_CACHE} docker-compose up -d
+	${COMPOSE} up -d
 
 .PHONY: down
 down:
-	docker rm -f redis-7-0-5
+	${DOCKER} rm -f redis-7-0-5 || true
 
 .PHONY: logs
 logs:
-	docker logs -f redis-7-0-5
+	${DOCKER} logs -f redis-7-0-5
 
 .PHONY: stats
 stats:
-	docker stats redis-7-0-5
+	${DOCKER} stats redis-7-0-5
 
 .PHONY: cli
 cli:
-	docker run --rm -it --net=local_backend ${PULL_THRU_CACHE}library/redis:7.0.5-alpine3.16 redis-cli -h redis-7-0-5 -p 6379
+	source .env ; ${DOCKER} run --rm -it --net=local "$$PULL_THRU_CACHE"library/redis:7.0.5-alpine3.16 redis-cli -h redis-7-0-5 -p 6379
