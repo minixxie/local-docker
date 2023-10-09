@@ -16,5 +16,6 @@ for upstream in $upstreams; do
 		cp -f "$scriptPath"/src/$upstream.conf "$scriptPath"/conf.d/$upstream.conf
 	fi
 done
+cp -f "$scriptPath"/src/_.conf "$scriptPath"/conf.d/_.conf
 echo "Prepared sites: "
 ls -l "$scriptPath"/conf.d/
