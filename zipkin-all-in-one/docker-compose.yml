@@ -2,7 +2,10 @@
 version: '3.3'
 services:
   zipkin-all-in-one:
-    image: ${PULL_THRU_CACHE}openzipkin/zipkin:latest
+    image: zipkin-all-in-one:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: zipkin-all-in-one
     hostname: zipkin-all-in-one
     restart: always

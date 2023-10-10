@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 DOCKER := nerdctl
 COMPOSE := nerdctl compose
 CONTAINER := zipkin-all-in-one
@@ -22,3 +23,11 @@ logs:
 .PHONY: stats
 stats:
 	${DOCKER} stats ${CONTAINER}
+
+.PHONY: check-healthy
+check-healthy:
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:9411" ../scripts/check-healthy.sh
+
+.PHONY: wait-healthy
+wait-healthy:
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:9411" ../scripts/wait-healthy.sh

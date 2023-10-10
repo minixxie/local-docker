@@ -2,7 +2,10 @@
 version: '3.3'
 services:
   jaeger-all-in-one:
-    image: ${PULL_THRU_CACHE}jaegertracing/all-in-one:latest
+    image: jaeger-all-in-one:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: jaeger-all-in-one
     hostname: jaeger-all-in-one
     restart: always
