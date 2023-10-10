@@ -22,3 +22,11 @@ logs:
 .PHONY: stats
 stats:
 	${DOCKER} stats ${CONTAINER}
+
+.PHONY: check-healthy
+check-healthy:
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} TCP="127.0.0.1:80" ../scripts/check-healthy.sh
+
+.PHONY: wait-healthy
+wait-healthy:
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} TCP="127.0.0.1:80" ../scripts/wait-healthy.sh

@@ -2,8 +2,10 @@
 version: '3.3'
 services:
   nginx:
-    image: ${PULL_THRU_CACHE}library/nginx:alpine
-    #image: docker.io/ibrary/nginx:alpine
+    image: nginx:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: nginx
     hostname: nginx
     restart: always

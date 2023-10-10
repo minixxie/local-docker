@@ -10,8 +10,9 @@ check:
 .PHONY: up
 up:
 	${COMPOSE} up -d
+	make -s wait-healthy
 	#cd ../nginx-proxy && make up
-	cd ../nginx && make up
+	cd ../nginx && make up wait-healthy
 
 .PHONY: down
 down:

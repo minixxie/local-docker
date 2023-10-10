@@ -2,7 +2,10 @@
 version: '3.3'
 services:
   otel-collector-0-86-0:
-    image: ${PULL_THRU_CACHE}otel/opentelemetry-collector-contrib:0.86.0
+    image: otel-collector:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: otel-collector-0-86-0
     hostname: otel-collector-0-86-0
     restart: always
