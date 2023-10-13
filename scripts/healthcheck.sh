@@ -30,11 +30,7 @@ if [ $r -ne 0 ]; then
 	exit 1
 fi
 
-checkCmd="/healthcheck -http $HTTP"
-if [ "$HTTP" == "" ]; then
-	checkCmd="/healthcheck -tcp $TCP"
-fi
-if [ "$CONTAINER_CMD" != "" ]; then
+if [ "$CONTAINER_CMD" == "" ]; then
 	if [ "$HTTP" != "" ]; then
 		CONTAINER_CMD="/healthcheck -http $HTTP"
 	else
