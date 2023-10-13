@@ -1,0 +1,22 @@
+---
+version: '3.3'
+services:
+  clickhouse-server-23-9-1:
+    image: clickhouse-server-23-9-1:dont_push
+    #platform: linux/arm64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: clickhouse-server-23-9-1
+    hostname: clickhouse-server-23-9-1
+    restart: always
+    environment:
+      CLICKHOUSE_DB: uptrace
+    expose:
+      - 8123
+      - 9000
+    networks:
+      - local
+networks:
+  local:
+    name: local
