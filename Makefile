@@ -34,6 +34,10 @@ hosts:
 stats:
 	${DOCKER} stats `${DOCKER} ps -a | sed 1d | awk '{print $$NF}'`
 
+.PHONY: down-all
+down-all:
+	${DOCKER} rm -f `${DOCKER} ps -qa`
+
 .PHONY: up-monitoring
 up-monitoring:
 	#cd node-exporter-1-6-1 && make up && cd -
