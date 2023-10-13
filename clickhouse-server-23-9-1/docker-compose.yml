@@ -3,7 +3,7 @@ version: '3.3'
 services:
   clickhouse-server-23-9-1:
     image: clickhouse-server-23-9-1:dont_push
-    #platform: linux/arm64
+    platform: linux/arm64  # for apple silicon M1/2, even with arch=x86_64 simulation
     build:
       context: .
       dockerfile: Dockerfile
