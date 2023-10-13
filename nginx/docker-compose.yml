@@ -11,7 +11,7 @@ services:
     restart: always
     volumes:
       - ./conf.d:/etc/nginx/conf.d
-      - ./index.html:/usr/share/nginx/html/index.html
+      - ./html:/usr/share/nginx/html
     ports:
       - 80:80
     networks:
