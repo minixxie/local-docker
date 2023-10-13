@@ -10,7 +10,7 @@ check:
 .PHONY: up
 up:
 	./setup-conf.sh
-	cd html && git clone --depth 1 https://github.com/VKCOM/lighthouse.git && cd -
+	cd html && git clone --depth 1 https://github.com/VKCOM/lighthouse.git && cd - || true
 	${COMPOSE} up -d
 
 .PHONY: down

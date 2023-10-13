@@ -1,26 +1,26 @@
 SHELL := /bin/bash
 DOCKER := nerdctl
 
-.PHONY: install-tools
-install-tools:
-	brew install --cask docker
-	brew install docker-compose
-	brew install hyperkit
-	brew install minikube
+#.PHONY: install-tools
+#install-tools:
+#	brew install --cask docker
+#	brew install docker-compose
+#	brew install hyperkit
+#	brew install minikube
 
-.PHONY: minikube
-minikube:
-	minikube delete; minikube start --driver=hyperkit --cpus 2 --memory 2048
-	#minikube delete; minikube start --driver=hyperkit --cpus 4 --memory 8194 --disk-size='40000mb'
-	minikube pause
-	eval $$(minikube docker-env) ; docker rm -f $$(docker ps -qa) ; make docker-networks
-	@echo "Remember to run this for every terminal, or add this into your ~/.bashrc or ~/.zshrc, etc:"
-	@echo "eval \$$(minikube docker-env)"
-	make minikube-mount
+#.PHONY: minikube
+#minikube:
+#	minikube delete; minikube start --driver=hyperkit --cpus 2 --memory 2048
+#	#minikube delete; minikube start --driver=hyperkit --cpus 4 --memory 8194 --disk-size='40000mb'
+#	minikube pause
+#	eval $$(minikube docker-env) ; docker rm -f $$(docker ps -qa) ; make docker-networks
+#	@echo "Remember to run this for every terminal, or add this into your ~/.bashrc or ~/.zshrc, etc:"
+#	@echo "eval \$$(minikube docker-env)"
+#	make minikube-mount
 
-.PHONY: minikube-mount
-minikube-mount:
-	minikube mount /Users:/Users
+#.PHONY: minikube-mount
+#minikube-mount:
+#	minikube mount /Users:/Users
 
 #.PHONY: docker-networks
 #docker-networks:
