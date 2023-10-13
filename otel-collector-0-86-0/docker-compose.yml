@@ -2,7 +2,7 @@
 version: '3.3'
 services:
   otel-collector-0-86-0:
-    image: otel-collector:dont_push
+    image: otel-collector-0-86-0:dont_push
     build:
       context: .
       dockerfile: Dockerfile

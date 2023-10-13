@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 DOCKER := nerdctl
 COMPOSE := nerdctl compose
 CONTAINER := graylog-5-1-5
@@ -11,7 +12,7 @@ up:
 	cd ../mongodb-5-0-21 && make up && cd -
 	cd ../elasticsearch-oss-7-10-2 && make up && cd -
 	${COMPOSE} up -d
-	cd ../nginx && make up cd -
+	cd ../nginx && make up wait-healthy && cd -
 
 .PHONY: down
 down:

@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 DOCKER := nerdctl
 COMPOSE := nerdctl compose
 CONTAINER := mysql-8-0-31

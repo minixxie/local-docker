@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 DOCKER := nerdctl
 COMPOSE := nerdctl compose
 CONTAINER := mongodb-5-0-21

@@ -2,7 +2,10 @@
 version: '3.3'
 services:
   grafana-10-1-4:
-    image: ${PULL_THRU_CACHE}grafana/grafana:10.1.4
+    image: grafana-10-1-4:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: grafana-10-1-4
     hostname: grafana-10-1-4
     restart: always

@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 DOCKER := nerdctl
 COMPOSE := nerdctl compose
 CONTAINER := otel-collector-0-86-0
@@ -26,8 +27,8 @@ stats:
 
 .PHONY: check-healthy
 check-healthy:
-	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} CONTAINER_CMD="/healthcheck -tcp 127.0.0.1:4317" ../scripts/check-healthy.sh
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} TCP="127.0.0.1:4317" ../scripts/healthcheck.sh
 
 .PHONY: wait-healthy
 wait-healthy:
-	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} CONTAINER_CMD="/healthcheck -tcp 127.0.0.1:4317" ../scripts/wait-healthy.sh
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} TCP="127.0.0.1:4317" WAIT=1 ../scripts/healthcheck.sh

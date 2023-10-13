@@ -1,3 +1,6 @@
+SHELL := /bin/bash
+DOCKER := nerdctl
+
 .PHONY: install-tools
 install-tools:
 	brew install --cask docker
@@ -27,11 +30,22 @@ minikube-mount:
 hosts:
 	@./.hosts.sh 127.0.0.1
 
+.PHONY: stats
+stats:
+	${DOCKER} stats `${DOCKER} ps -a | sed 1d | awk '{print $$NF}'`
+
 .PHONY: up-monitoring
 up-monitoring:
 	#cd node-exporter-1-6-1 && make up && cd -
 	#cd cadvisor-v0.47.2 && make up && cd -
 	cd otel-collector-0-86-0 && make up wait-healthy && cd -
 	cd jaeger-all-in-one && make up wait-healthy && cd -
-	cd prometheus-2-47-0 && make up && cd -
-	cd grafana-10-1-4 && make up && cd -
+	cd prometheus-2-47-0 && make up wait-healthy && cd -
+	cd grafana-10-1-4 && make up wait-healthy && cd -
+
+.PHONY: down-monitoring
+down-monitoring:
+	cd grafana-10-1-4 && make down && cd -
+	cd prometheus-2-47-0 && make down && cd -
+	cd jaeger-all-in-one && make down && cd -
+	cd otel-collector-0-86-0 && make down && cd -

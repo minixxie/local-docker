@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 DOCKER := nerdctl
 COMPOSE := nerdctl compose
 CONTAINER := grafana-10-1-4
@@ -9,8 +10,8 @@ check:
 .PHONY: up
 up:
 	${COMPOSE} up -d
-	#cd ../nginx-proxy && make up
-	cd ../nginx && make up
+	make -s wait-healthy
+	cd ../nginx && make up && cd -
 
 .PHONY: down
 down:
@@ -23,3 +24,11 @@ logs:
 .PHONY: stats
 stats:
 	${DOCKER} stats ${CONTAINER}
+
+.PHONY: check-healthy
+check-healthy:
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:3000" ../scripts/healthcheck.sh
+
+.PHONY: wait-healthy
+wait-healthy:
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:3000" WAIT=1 ../scripts/healthcheck.sh

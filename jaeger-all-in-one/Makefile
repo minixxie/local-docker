@@ -12,7 +12,7 @@ up:
 	${COMPOSE} up -d
 	make -s wait-healthy
 	#cd ../nginx-proxy && make up
-	cd ../nginx && make up wait-healthy
+	cd ../nginx && make up wait-healthy && cd -
 
 .PHONY: down
 down:
@@ -28,8 +28,8 @@ stats:
 
 .PHONY: check-healthy
 check-healthy:
-	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:16686" ../scripts/check-healthy.sh
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:16686" ../scripts/healthcheck.sh
 
 .PHONY: wait-healthy
 wait-healthy:
-	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:16686" ../scripts/wait-healthy.sh
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:16686" WAIT=1 ../scripts/healthcheck.sh

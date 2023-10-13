@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 DOCKER := nerdctl
 COMPOSE := nerdctl compose
 CONTAINER := nginx
@@ -25,8 +26,8 @@ stats:
 
 .PHONY: check-healthy
 check-healthy:
-	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} TCP="127.0.0.1:80" ../scripts/check-healthy.sh
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} TCP="127.0.0.1:80" ../scripts/healthcheck.sh
 
 .PHONY: wait-healthy
 wait-healthy:
-	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} TCP="127.0.0.1:80" ../scripts/wait-healthy.sh
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} TCP="127.0.0.1:80" WAIT=1 ../scripts/healthcheck.sh

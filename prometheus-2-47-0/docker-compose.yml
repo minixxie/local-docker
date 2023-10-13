@@ -2,7 +2,10 @@
 version: '3.3'
 services:
   prometheus-2-47-0:
-    image: ${PULL_THRU_CACHE}prom/prometheus:v2.47.0
+    image: prometheus-2-47-0:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: prometheus-2-47-0
     hostname: prometheus-2-47-0
     restart: always
