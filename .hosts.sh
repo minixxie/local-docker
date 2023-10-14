@@ -17,6 +17,7 @@ $1  kafka.local
 $1  kafka-ui.local
 $1  postgis-ui.local
 $1  postgres-ui.local
+$1  timescaledb-ui.local
 $1  prometheus.local
 $1  jaeger.local
 $1  xxljob.local

@@ -1,0 +1,20 @@
+---
+version: '3.3'
+services:
+  timescaledb-ui:
+    image: timescaledb-ui:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: timescaledb-ui
+    hostname: timescaledb-ui
+    restart: always
+    environment:
+      - VIRTUAL_HOST=timescaledb-ui.local
+      - VIRTUAL_PORT=8081
+      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@timescaledb-2-9-1:5432/postgres?sslmode=disable
+    networks:
+      - local
+networks:
+  local:
+    name: local

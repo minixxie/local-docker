@@ -1,11 +1,13 @@
 ---
 version: '3.3'
 services:
-  timescaledb-2-9-1-pg15:
+  timescaledb-2-9-1:
     image: ${PULL_THRU_CACHE}timescale/timescaledb:2.9.1-pg15
-    container_name: timescaledb-2-9-1-pg15
-    hostname: timescaledb-2-9-1-pg15
+    container_name: timescaledb-2-9-1
+    hostname: timescaledb-2-9-1
     restart: always
+    volumes:
+      - ./healthcheck.sh:/healthcheck.sh
     environment:
       - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
     expose:
@@ -25,7 +27,7 @@ services:
     environment:
       - VIRTUAL_HOST=timescaledb-ui.local
       - VIRTUAL_PORT=8081
-      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@timescaledb-2-9-1-pg15:5432/postgres?sslmode=disable
+      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@timescaledb-2-9-1:5432/postgres?sslmode=disable
     networks:
       - local
     depends_on:
