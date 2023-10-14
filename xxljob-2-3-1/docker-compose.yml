@@ -2,7 +2,10 @@
 version: '3.3'
 services:
   xxljob-2-3-1:
-    image: ${PULL_THRU_CACHE}xuxueli/xxl-job-admin:2.3.1
+    image: xxljob:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: xxljob-2-3-1
     hostname: xxljob-2-3-1
     restart: always

@@ -8,6 +8,8 @@ projRoot=$scriptPath/../../
 cd $projRoot
 
 # TESTS
-printf "\x1B[31mTODO\x1B[0m\n"
+cd $projRoot/xxljob-2-3-1 && make down up wait-healthy && cd -
 
 # CLEAN UP
+cd $projRoot/mysql-8-0-31 && make down
+cd $projRoot/xxljob-2-3-1 && make down
