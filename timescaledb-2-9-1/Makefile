@@ -1,27 +1,27 @@
 SHELL := /bin/bash
 DOCKER := nerdctl
 COMPOSE := nerdctl compose
+CONTAINER := timescaledb-2-9-1
 
 .PHONY: check
 check:
-	${DOCKER} ps -a | grep timescaledb-2-9-1-pg15
+	${DOCKER} ps -a | grep ${CONTAINER}
 
 .PHONY: up
 up:
 	${COMPOSE} up -d
-	cd ../nginx && make up && cd -
 
 .PHONY: down
 down:
-	${DOCKER} rm -f timescaledb-2-9-1-pg15 timescaledb-ui || true
+	${DOCKER} rm -f ${CONTAINER} || true
 
 .PHONY: logs
 logs:
-	${DOCKER} logs -f timescaledb-2-9-1-pg15
+	${DOCKER} logs -f ${CONTAINER}
 
 .PHONY: stats
 stats:
-	${DOCKER} stats timescaledb-2-9-1-pg15
+	${DOCKER} stats ${CONTAINER}
 
 .PHONY: cli
 cli:
@@ -37,4 +37,12 @@ cli:
 	# \dv - list all views
 	# select pg_relation_filepath('<table-name>'); - show paths of physical files
 	source .env ; ${DOCKER} run --rm -it --net=local -e PGPASSWORD="$$POSTGRES_PASSWORD" \
-	       "$$PULL_THRU_CACHE"timescale/timescaledb:2.9.1-pg15 psql -h timescaledb-2-9-1-pg15 -U postgres
+	       "$$PULL_THRU_CACHE"timescale/timescaledb:2.9.1-pg15 psql -h ${CONTAINER} -U postgres
+
+.PHONY: check-healthy
+check-healthy:
+	@source .env ; DOCKER=${DOCKER} CONTAINER=${CONTAINER} CONTAINER_CMD="/healthcheck.sh" ../scripts/healthcheck.sh
+
+.PHONY: wait-healthy
+wait-healthy:
+	@source .env ; DOCKER=${DOCKER} CONTAINER=${CONTAINER} CONTAINER_CMD="/healthcheck.sh" WAIT=1 ../scripts/healthcheck.sh

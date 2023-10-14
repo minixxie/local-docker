@@ -6,7 +6,6 @@ CONTAINER := postgres-15-1
 .PHONY: check
 check:
 	${DOCKER} ps -a | grep ${CONTAINER}
-	#${DOCKER} ps -a | grep postgres-ui
 
 .PHONY: up
 up:
@@ -14,7 +13,7 @@ up:
 
 .PHONY: down
 down:
-	${DOCKER} rm -f ${CONTAINER} postgres-ui || true
+	${DOCKER} rm -f ${CONTAINER} || true
 
 .PHONY: logs
 logs:
@@ -22,7 +21,6 @@ logs:
 
 .PHONY: stats
 stats:
-	#${DOCKER} stats ${CONTAINER} postgres-ui
 	${DOCKER} stats ${CONTAINER}
 
 .PHONY: cli

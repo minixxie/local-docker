@@ -6,7 +6,6 @@ CONTAINER := postgis-15-3-3
 .PHONY: check
 check:
 	${DOCKER} ps -a | grep ${CONTAINER}
-	${DOCKER} ps -a | grep postgis-ui
 
 .PHONY: up
 up:
@@ -14,7 +13,7 @@ up:
 
 .PHONY: down
 down:
-	${DOCKER} rm -f ${CONTAINER} postgis-ui || true
+	${DOCKER} rm -f ${CONTAINER} || true
 
 .PHONY: logs
 logs:
@@ -38,7 +37,7 @@ cli:
 	# \dv - list all views
 	# select pg_relation_filepath('<table-name>'); - show paths of physical files
 	source .env ; ${DOCKER} run --rm -it --net=local -e PGPASSWORD="$$POSTGRES_PASSWORD" \
-	       "$$PULL_THRU_CACHE"postgis/postgis:15-3.3-alpine psql -h postgis-15-3-3 -U postgres
+	       "$$PULL_THRU_CACHE"postgis/postgis:15-3.3-alpine psql -h ${CONTAINER} -U postgres
 
 .PHONY: check-healthy
 check-healthy:
