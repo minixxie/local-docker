@@ -21,21 +21,6 @@ services:
     #  interval: 5s
     #  timeout: 4s
     #  retries: 36
-  postgis-ui:
-    image: ${PULL_THRU_CACHE}sosedoff/pgweb:0.11.12
-    container_name: postgis-ui
-    hostname: postgis-ui
-    restart: always
-    environment:
-      - VIRTUAL_HOST=postgis-ui.local
-      - VIRTUAL_PORT=8081
-      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@postgis-15-3-3:5432/postgres?sslmode=disable
-    expose:
-      - 8081
-    networks:
-      - local
-    depends_on:
-      - postgis-15-3-3
 networks:
   local:
     name: local

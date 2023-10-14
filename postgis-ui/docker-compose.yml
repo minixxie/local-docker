@@ -1,0 +1,22 @@
+---
+version: '3.3'
+services:
+  postgis-ui:
+    image: postgis-ui:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: postgis-ui
+    hostname: postgis-ui
+    restart: always
+    environment:
+      - VIRTUAL_HOST=postgis-ui.local
+      - VIRTUAL_PORT=8081
+      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@postgis-15-3-3:5432/postgres?sslmode=disable
+    expose:
+      - 8081
+    networks:
+      - local
+networks:
+  local:
+    name: local
