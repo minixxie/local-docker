@@ -8,6 +8,7 @@ projRoot=$scriptPath/../../
 cd $projRoot
 
 # TESTS
-printf "\x1B[31mTODO\x1B[0m\n"
+cd $projRoot/alertmanager-0-26-0 && make down up wait-healthy && cd -
 
 # CLEAN UP
+cd $projRoot/alertmanager-0-26-0 && make down

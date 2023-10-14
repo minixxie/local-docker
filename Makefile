@@ -47,6 +47,7 @@ test:
 	./scripts/test/test-mongo.sh
 	./scripts/test/test-clickhouse.sh
 	./scripts/test/test-monitoring.sh
+	./scripts/test/test-alertmanager.sh
 	./scripts/test/test-zipkin.sh
 	./scripts/test/test-xxljob.sh
 

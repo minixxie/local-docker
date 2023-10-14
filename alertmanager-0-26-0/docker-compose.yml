@@ -2,7 +2,10 @@
 version: '3.3'
 services:
   alertmanager-0-26-0:
-    image: ${PULL_THRU_CACHE}prom/alertmanager:v0.26.0
+    image: alertmanager-0-26-0:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: alertmanager-0-26-0
     hostname: alertmanager-0-26-0
     restart: always
