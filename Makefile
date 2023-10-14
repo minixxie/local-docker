@@ -34,6 +34,10 @@ hosts:
 stats:
 	${DOCKER} stats `${DOCKER} ps -a | sed 1d | awk '{print $$NF}'`
 
+.PHONY: test
+test:
+	./scripts/test/test-postgis-ui.sh
+
 .PHONY: down-all
 down-all:
 	${DOCKER} rm -f `${DOCKER} ps -qa`
