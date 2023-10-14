@@ -11,7 +11,6 @@ check:
 .PHONY: up
 up:
 	${COMPOSE} up -d
-	cd ../nginx && make up && cd -
 
 .PHONY: down
 down:

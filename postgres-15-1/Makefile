@@ -11,7 +11,6 @@ check:
 .PHONY: up
 up:
 	${COMPOSE} up -d
-	cd ../nginx && make up && cd -
 
 .PHONY: down
 down:
@@ -41,3 +40,11 @@ cli:
 	# select pg_relation_filepath('<table-name>'); - show paths of physical files
 	source .env ; ${DOCKER} run --rm -it --net=local -e PGPASSWORD="$$POSTGRES_PASSWORD" \
 	       "$$PULL_THRU_CACHE"library/postgres:15.1-alpine3.17 psql -h ${CONTAINER} -U postgres
+
+.PHONY: check-healthy
+check-healthy:
+	@source .env ; DOCKER=${DOCKER} CONTAINER=${CONTAINER} CONTAINER_CMD="/healthcheck.sh" ../scripts/healthcheck.sh
+
+.PHONY: wait-healthy
+wait-healthy:
+	@source .env ; DOCKER=${DOCKER} CONTAINER=${CONTAINER} CONTAINER_CMD="/healthcheck.sh" WAIT=1 ../scripts/healthcheck.sh
