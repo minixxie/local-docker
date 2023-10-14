@@ -51,6 +51,7 @@ test:
 	./scripts/test/test-alertmanager.sh
 	./scripts/test/test-zipkin.sh
 	./scripts/test/test-xxljob.sh
+	./scripts/test/test-es.sh
 
 .PHONY: down-all
 down-all:
