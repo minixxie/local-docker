@@ -26,3 +26,11 @@ stats:
 .PHONY: cli
 cli:
 	source .env ; ${DOCKER} run --rm -it --net=local "$$PULL_THRU_CACHE"library/mysql:8.0.31-oracle mysql -A --default-character-set=utf8 -hmysql-8-0-31 -uroot -p"$$MYSQL_ROOT_PASSWORD"
+
+.PHONY: check-healthy
+check-healthy:
+	@source .env ; DOCKER=${DOCKER} CONTAINER=${CONTAINER} CONTAINER_CMD="/healthcheck.sh" ../scripts/healthcheck.sh
+
+.PHONY: wait-healthy
+wait-healthy:
+	@source .env ; DOCKER=${DOCKER} CONTAINER=${CONTAINER} CONTAINER_CMD="/healthcheck.sh" WAIT=1 ../scripts/healthcheck.sh
