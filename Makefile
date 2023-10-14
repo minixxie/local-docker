@@ -45,6 +45,7 @@ test:
 	./scripts/test/test-postgres-ui.sh
 	./scripts/test/test-mysql.sh
 	./scripts/test/test-mongo.sh
+	./scripts/test/test-clickhouse.sh
 	./scripts/test/test-monitoring.sh
 	./scripts/test/test-zipkin.sh
 	./scripts/test/test-xxljob.sh
