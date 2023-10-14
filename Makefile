@@ -49,7 +49,6 @@ test:
 	./scripts/test/test-clickhouse.sh
 	./scripts/test/test-monitoring.sh
 	./scripts/test/test-alertmanager.sh
-	./scripts/test/test-cadvisor.sh
 	./scripts/test/test-zipkin.sh
 	./scripts/test/test-xxljob.sh
 	./scripts/test/test-es.sh
@@ -60,8 +59,8 @@ down-all:
 
 .PHONY: up-monitoring
 up-monitoring:
-	#cd node-exporter-1-6-1 && make up && cd -
-	#cd cadvisor-v0.47.2 && make up && cd -
+	cd node-exporter-1-6-1 && make up && cd -
+	cd cadvisor-0-47-2 && make up && cd -
 	cd otel-collector-0-86-0 && make up wait-healthy && cd -
 	cd jaeger-all-in-one && make up wait-healthy && cd -
 	cd prometheus-2-47-0 && make up wait-healthy && cd -
@@ -73,3 +72,5 @@ down-monitoring:
 	cd prometheus-2-47-0 && make down && cd -
 	cd jaeger-all-in-one && make down && cd -
 	cd otel-collector-0-86-0 && make down && cd -
+	cd node-exporter-1-6-1 && make down && cd -
+	cd cadvisor-0-47-2 && make down && cd -

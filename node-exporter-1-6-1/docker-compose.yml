@@ -2,7 +2,10 @@
 version: '3.3'
 services:
   node-exporter-1-6-1:
-    image: quay.io/prometheus/node-exporter:v1.6.1
+    image: node-exporter-1-6-1:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: node-exporter-1-6-1
     hostname: node-exporter-1-6-1
     restart: always
