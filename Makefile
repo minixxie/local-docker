@@ -43,6 +43,7 @@ test:
 	make -s down-all
 	./scripts/test/test-postgis-ui.sh
 	./scripts/test/test-postgres-ui.sh
+	./scripts/test/test-timescaledb-ui.sh
 	./scripts/test/test-mysql.sh
 	./scripts/test/test-mongo.sh
 	./scripts/test/test-clickhouse.sh
