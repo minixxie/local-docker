@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 DOCKER := nerdctl
 COMPOSE := nerdctl compose
-CONTAINER := mongodb-5-0-21
+CONTAINER := mongodb-3-2-16
 
 .PHONY: check
 check:
@@ -25,7 +25,7 @@ stats:
 
 .PHONY: cli
 cli:
-	source .env ; ${DOCKER} run --rm -it --net local "$$PULL_THRU_CACHE"library/mongo:5.0.21 mongo "mongodb://root:$$MONGO_INITDB_ROOT_PASSWORD@mongodb-5-0-21:27017/admin"
+	source .env ; ${DOCKER} run --rm -it --net local "$$PULL_THRU_CACHE"library/mongo:3.2.16 mongo "mongodb://root:$$MONGO_INITDB_ROOT_PASSWORD@${CONTAINER}:27017/admin"
 
 .PHONY: check-healthy
 check-healthy:

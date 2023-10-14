@@ -9,9 +9,10 @@ services:
     environment:
       - RS_NAME=rs0
       - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - "./healthcheck.js:/healthcheck.js"
+      - "./healthcheck.sh:/healthcheck.sh"
       - "./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js"
     expose:
       - 27017
