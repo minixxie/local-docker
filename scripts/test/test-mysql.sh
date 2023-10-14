@@ -7,5 +7,8 @@ projRoot=$scriptPath/../../
 
 cd $projRoot
 
+# TESTS
 cd $projRoot/mysql-8-0-31 && make down up wait-healthy && cd -
-make down-all
+
+# CLEAN UP
+cd $projRoot/mysql-8-0-31 && make down

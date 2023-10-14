@@ -7,5 +7,9 @@ projRoot=$scriptPath/../../
 
 cd $projRoot
 
+# TESTS
 cd $projRoot/postgis-ui && make down up wait-healthy && cd -
-make down-all
+
+# CLEAN UP
+cd $projRoot/postgis-ui && make down
+cd $projRoot/postgis-15-3-3 && make down
