@@ -31,8 +31,8 @@ stats:
 
 .PHONY: check-healthy
 check-healthy:
-	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:8080" ../scripts/healthcheck.sh
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:8080/xxl-job-admin" ../scripts/healthcheck.sh
 
 .PHONY: wait-healthy
 wait-healthy:
-	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:8080" WAIT=1 ../scripts/healthcheck.sh
+	@DOCKER=${DOCKER} CONTAINER=${CONTAINER} HTTP="http://127.0.0.1:8080/xxl-job-admin" WAIT=1 ../scripts/healthcheck.sh
