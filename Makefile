@@ -37,6 +37,7 @@ stats:
 .PHONY: test
 test:
 	./scripts/test/test-postgis-ui.sh
+	./scripts/test/test-postgres-ui.sh
 	./scripts/test/test-mysql.sh
 
 .PHONY: down-all

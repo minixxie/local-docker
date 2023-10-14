@@ -17,8 +17,6 @@ services:
       - 8081
     networks:
       - local
-    depends_on:
-      - postgres-15-1
 networks:
   local:
     name: local

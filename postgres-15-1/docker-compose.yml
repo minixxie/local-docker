@@ -19,21 +19,6 @@ services:
     #  interval: 5s
     #  timeout: 4s
     #  retries: 36
-#  postgres-ui:
-#    image: ${PULL_THRU_CACHE}sosedoff/pgweb:0.11.12
-#    container_name: postgres-ui
-#    hostname: postgres-ui
-#    restart: always
-#    environment:
-#      - VIRTUAL_HOST=postgres-ui.local
-#      - VIRTUAL_PORT=8081
-#      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@postgres-15-1:5432/postgres?sslmode=disable
-#    expose:
-#      - 8081
-#    networks:
-#      - local
-#    depends_on:
-#      - postgres-15-1
 networks:
   local:
     name: local
