@@ -34,12 +34,17 @@ hosts:
 stats:
 	${DOCKER} stats `${DOCKER} ps -a | sed 1d | awk '{print $$NF}'`
 
+.PHONY: ps
+ps:
+	${DOCKER} ps -a
+
 .PHONY: test
 test:
 	make -s down-all
 	./scripts/test/test-postgis-ui.sh
 	./scripts/test/test-postgres-ui.sh
 	./scripts/test/test-mysql.sh
+	./scripts/test/test-mongo.sh
 
 .PHONY: down-all
 down-all:
