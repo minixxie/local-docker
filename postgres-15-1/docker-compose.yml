@@ -6,6 +6,8 @@ services:
     container_name: postgres-15-1
     hostname: postgres-15-1
     restart: always
+    volumes:
+      - ./healthcheck.sh:/healthcheck.sh
     environment:
       - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
     #ports:
