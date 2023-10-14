@@ -10,6 +10,7 @@ check:
 .PHONY: up
 up:
 	cd ../mysql-8-0-31 && make up wait-healthy && cd -
+	./init-db.sh
 	${COMPOSE} up -d
 	cd ../nginx && make up && cd -
 
