@@ -45,6 +45,7 @@ test:
 	./scripts/test/test-postgres-ui.sh
 	./scripts/test/test-mysql.sh
 	./scripts/test/test-mongo.sh
+	./scripts/test/test-monitoring.sh
 
 .PHONY: down-all
 down-all:
