@@ -11,8 +11,8 @@ services:
     restart: always
     volumes:
       - ./gitea:/data
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+      #- /etc/timezone:/etc/timezone:ro
+      #- /etc/localtime:/etc/localtime:ro
     environment:
       - GITEA__database__DB_TYPE=postgres
       - GITEA__database__HOST=gitea-postgres-15-1:5432
