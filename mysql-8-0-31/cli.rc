@@ -1,0 +1,1 @@
+source .env ; ${DOCKER} run --rm -it --net=local "$PULL_THRU_CACHE"library/mysql:8.0.31-oracle mysql -A --default-character-set=utf8 -h${CONTAINER} -uroot -p"$MYSQL_ROOT_PASSWORD"
