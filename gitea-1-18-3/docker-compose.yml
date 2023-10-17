@@ -2,7 +2,10 @@
 version: '3.3'
 services:
   gitea-1-18-3:
-    image: ${PULL_THRU_CACHE}gitea/gitea:1.18.3
+    image: gitea-1-18-3:dont_push
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: gitea-1-18-3
     hostname: gitea-1-18-3
     restart: always
@@ -26,25 +29,6 @@ services:
       - 8222:22
     networks:
       - local
-    depends_on:
-      - gitea-db
-  gitea-db:
-    image: ${PULL_THRU_CACHE}library/postgres:15.1-alpine3.17
-    container_name: gitea-postgres-15-1
-    hostname: gitea-postgres-15-1
-    restart: always
-    environment:
-      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
-      - "POSTGRES_DB=gitea"
-    expose:
-      - 5432
-    networks:
-      - local
-    healthcheck:
-      test: psql -h 127.0.0.1 -U postgres -c 'select 1;'
-      interval: 5s
-      timeout: 4s
-      retries: 36
 networks:
   local:
     name: local

@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 DOCKER := nerdctl
 COMPOSE := nerdctl compose
-CONTAINER := gitea-1-18-3
+CONTAINER := gitea-db
 
 .PHONY: check
 check:
@@ -10,7 +10,6 @@ check:
 .PHONY: up
 up:
 	${COMPOSE} up -d
-	cd ../nginx && make up && cd -
 
 .PHONY: down
 down:
@@ -38,4 +37,12 @@ pgcli:
 	# \dv - list all views
 	# select pg_relation_filepath('<table-name>'); - show paths of physical files
 	source .env ; ${DOCKER} run --rm -it --net=local -e PGPASSWORD="$$POSTGRES_PASSWORD" \
-	       "$$PULL_THRU_CACHE"library/postgres:15.1-alpine3.17 psql -h gitea-postgres-15-1 -U postgres
+	       "$$PULL_THRU_CACHE"library/postgres:15.1-alpine3.17 psql -h ${CONTAINER} -U postgres
+
+.PHONY: check-healthy
+check-healthy:
+	@source .env ; DOCKER=${DOCKER} CONTAINER=${CONTAINER} CONTAINER_CMD="/healthcheck.sh" ../scripts/healthcheck.sh
+
+.PHONY: wait-healthy
+wait-healthy:
+	@source .env ; DOCKER=${DOCKER} CONTAINER=${CONTAINER} CONTAINER_CMD="/healthcheck.sh" WAIT=1 ../scripts/healthcheck.sh
