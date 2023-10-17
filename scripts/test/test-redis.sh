@@ -8,6 +8,7 @@ projRoot=$scriptPath/../../
 cd $projRoot
 
 # TESTS
-printf "\x1B[31mTODO\x1B[0m\n"
+cd $projRoot/redis-7-0-5 && make down up wait-healthy && cd -
 
 # CLEAN UP
+cd $projRoot/redis-7-0-5 && make down
