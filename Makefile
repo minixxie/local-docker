@@ -1,12 +1,46 @@
 SHELL := /bin/bash
-DOCKER := nerdctl
+DOCKER ?= nerdctl
 
-#.PHONY: install-tools
-#install-tools:
-#	brew install --cask docker
-#	brew install docker-compose
+.PHONY: install-tools
+install-tools:
+	brew install --cask docker
+	brew install docker-compose
+	brew install colima
+	colima nerdctl install
 #	brew install hyperkit
 #	brew install minikube
+
+.PHONY: ncpu
+ncpu:
+	@if [ "$$(uname -s)" == "Darwin" ]; then \
+		sysctl hw.ncpu | sed 's/.*: //'; \
+	elif [ "$$(uname -s)" == "Linux" ]; then \
+		echo 0; \
+	else \
+		echo 0; \
+	fi
+
+.PHONY: mem
+mem:
+	@if [ "$$(uname -s)" == "Darwin" ]; then \
+		expr $$(sysctl hw.memsize | sed 's/.*: //') / 1024 / 1024 / 1024; \
+	elif [ "$$(uname -s)" == "Linux" ]; then \
+		echo 0; \
+	else \
+		echo 0; \
+	fi
+
+.PHONY: containerd
+containerd:
+	colima start --runtime containerd \
+		--cpu $$(expr $$(make -s ncpu) / 2) \
+		--memory $$(expr $$(make -s mem) / 2)
+
+.PHONY: docker
+docker:
+	colima start --runtime docker \
+		--cpu $$(expr $$(make -s ncpu) / 2) \
+		--memory $$(expr $$(make -s mem) / 2)
 
 #.PHONY: minikube
 #minikube:
@@ -56,16 +90,17 @@ test:
 
 .PHONY: down-all
 down-all:
-	${DOCKER} rm -f `${DOCKER} ps -qa`
+	${DOCKER} rm -f `${DOCKER} ps -qa` || true
 
 .PHONY: up-monitoring
 up-monitoring:
-	cd node-exporter-1-6-1 && make up && cd -
-	cd cadvisor-0-47-2 && make up && cd -
+	cd node-exporter-1-6-1 && make up wait-healthy && cd -
+	cd cadvisor-0-47-2 && make up wait-healthy && cd -
 	cd otel-collector-0-86-0 && make up wait-healthy && cd -
 	cd jaeger-all-in-one && make up wait-healthy && cd -
 	cd prometheus-2-47-0 && make up wait-healthy && cd -
 	cd grafana-10-1-4 && make up wait-healthy && cd -
+	cd nginx && make down up wait-healthy && cd -
 
 .PHONY: down-monitoring
 down-monitoring:

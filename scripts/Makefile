@@ -1,6 +1,6 @@
 SHELL := /bin/bash
-DOCKER := nerdctl
-COMPOSE := nerdctl compose
+DOCKER ?= nerdctl
+COMPOSE ?= ${DOCKER} compose
 
 .PHONY: name
 name:
@@ -15,11 +15,16 @@ psa:
 	${DOCKER} ps -a
 
 .PHONY: check
-check: ps
+check: check
+	${DOCKER} ps -a | grep $$(make -s name)
 
 .PHONY: up
 up:
 	@if [ -f up.rc ]; then DOCKER="${DOCKER}" COMPOSE="${COMPOSE}" source up.rc; else ${COMPOSE} up -d; fi
+
+.PHONY: up-if-down
+up-if-down:
+	make -s check; if [ $$? -ne 0 ]; then make -s up; fi
 
 .PHONY: down
 down:

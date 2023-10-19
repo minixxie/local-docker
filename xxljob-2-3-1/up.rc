@@ -1,4 +1,4 @@
-cd ../mysql-8-0-31 && make up wait-healthy && cd -
+cd ../mysql-8-0-31 && make up-if-down wait-healthy && cd -
 ./init-db.sh
 ${COMPOSE} up -d
 make wait-healthy

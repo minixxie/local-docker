@@ -13,7 +13,7 @@ echo "upstreams: $upstreams ==="
 
 for upstream in $upstreams; do
 	if [ -f "$scriptPath"/src/$upstream.conf ]; then
-		cp -f "$scriptPath"/src/$upstream.conf "$scriptPath"/conf.d/$upstream.conf
+		cp -L -f "$scriptPath"/src/$upstream.conf "$scriptPath"/conf.d/$upstream.conf
 	fi
 done
 cp -f "$scriptPath"/src/_.conf "$scriptPath"/conf.d/_.conf
